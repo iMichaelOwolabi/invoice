@@ -1,0 +1,28 @@
+const validateBodySchema = (schema) => (req, res, next) => {
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return returnValidationError(error, res);
+  }
+
+  next();
+};
+
+const formatError = (allErrors) => {
+  const errors = [];
+  allErrors.details.forEach((error) => {
+    errors.push(error.message.replace(/['"]+/g, ""))
+  }
+  );
+  return errors;
+};
+
+const returnValidationError = (error, res) => {
+  const validationErrors = formatError(error);
+  return res.status(400).json({ status: "error", message: validationErrors });
+};
+
+module.exports = {
+  validateBodySchema,
+  validateParamSchema,
+  validateQuerySchema,
+};
