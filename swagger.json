@@ -1,0 +1,70 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Invoice app",
+    "description": "Simple invoice app",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5001/api/v1",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Invoice",
+      "description": "API for invoice in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+    "paths": {
+      "/invoices": {
+        "get": {
+          "tags": ["Invoices"],
+          "summary": "Get all invoice",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Invoice"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["Invoices"],
+          "summary": "Create invoice",
+          "responses": {
+            "201": {
+              "description": "Invoice created successfully",
+              "parameters": [
+                {
+                  "name": "item",
+                  "in": "body",
+                  "description": "Invoice params for creation",
+                  "schema": {
+                    "$ref": "#/definitions/Invoice"
+                  }
+                }
+              ],
+              "schema": {
+                "$ref": "#/definitions/Invoice"
+              }
+            }
+          }
+        }
+    },
+    "definitions": {
+      "Invoice": {
+        "required": ["page", "limit"],
+          "isPublic": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+}
